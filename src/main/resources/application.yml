@@ -1,0 +1,13 @@
+server:
+  port: ${port:9000}
+
+spring:
+  application:
+    name: demo
+
+  datasource:
+    platform: mysql
+    url: jdbc:mysql://dungiapp.ctezwyeyfqua.ap-northeast-2.rds.amazonaws.com/wow?autoReconnect=true # 변경해주세요
+    username: dungiapp # 변경해주세요
+    password: dungiapp # 변경해주세요
+    driver-class-name: com.mysql.cj.jdbc.Driver
