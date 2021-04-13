@@ -4,10 +4,22 @@ server:
 spring:
   application:
     name: demo
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: create
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    generate-ddl: false
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
 
   datasource:
     platform: mysql
-    url: jdbc:mysql://dungiapp.ctezwyeyfqua.ap-northeast-2.rds.amazonaws.com/wow?autoReconnect=true # 변경해주세요
-    username: dungiapp # 변경해주세요
-    password: dungiapp # 변경해주세요
+    url: jdbc:mysql://dungiapp.ctezwyeyfqua.ap-northeast-2.rds.amazonaws.com/wow?autoReconnect=true
+    username: dungiapp
+    password: dungiapp
     driver-class-name: com.mysql.cj.jdbc.Driver
+

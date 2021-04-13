@@ -7,59 +7,126 @@ import com.example.demo.config.secret.Secret;
 import com.example.demo.src.user.model.*;
 import com.example.demo.utils.AES128;
 import com.example.demo.utils.JwtService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.jdbc.core.JdbcTemplate;
 
-import javax.sql.DataSource;
+import java.util.List;
 
 import static com.example.demo.config.BaseResponseStatus.*;
 
-// Service Create, Update, Delete 의 로직 처리
+
 @Service
 public class UserService {
     final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private final UserDao userDao;
-    private final UserProvider userProvider;
+    private final UserRepository userRepository;
     private final JwtService jwtService;
-    private JdbcTemplate jdbcTemplate;
+
 
     @Autowired
-    public void setDataSource(DataSource dataSource){
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
-
-    @Autowired
-    public UserService(UserDao userDao, UserProvider userProvider, JwtService jwtService) {
-        this.userDao = userDao;
-        this.userProvider = userProvider;
+    public UserService(UserRepository userRepository, JwtService jwtService) {
+        this.userRepository = userRepository;
         this.jwtService = jwtService;
-
     }
 
-    //POST
     public PostUserRes createUser(PostUserReq postUserReq) throws BaseException {
-        //중복
-        if(userProvider.checkEmail(postUserReq.getEmail()) ==1){
-            throw new BaseException(POST_USERS_EXISTS_EMAIL);
+
+        if(!userRepository.findByEmail(postUserReq.getUserEmail()).isEmpty()){
+            throw new BaseException(POST_USER_EXISTS_EMAIL);
         }
+
 
         String pwd;
         try{
-            //암호화
             pwd = new AES128(Secret.USER_INFO_PASSWORD_KEY).encrypt(postUserReq.getPassword());
             postUserReq.setPassword(pwd);
         } catch (Exception ignored) {
             throw new BaseException(PASSWORD_ENCRYPTION_ERROR);
         }
 
-        int userId = userDao.createUser(postUserReq);
+        User newUser=new User();
+        newUser.setEmail(postUserReq.getUserEmail());
+        newUser.setName(postUserReq.getUserName());
+        newUser.setPassword(pwd);
 
-        //jwt발급
+        User savedUser = userRepository.save(newUser);
+        Long  userId=savedUser.getId();
+
         String jwt = jwtService.createJwt(userId);
         return new PostUserRes(jwt,userId);
     }
+
+
+    public PostUserRes createLogin(PostLoginReq postLoginReq) throws BaseException {
+
+        List<User> users = userRepository.findByEmail(postLoginReq.getUserEmail());
+        if(users.isEmpty()){
+            throw new BaseException(LOGIN_USER_NOT_EXISTS_EMAIL);
+        }
+        User user=users.get(0);
+
+        String pwd;
+        try{
+            pwd = new AES128(Secret.USER_INFO_PASSWORD_KEY).encrypt(postLoginReq.getPassword());
+            postLoginReq.setPassword(pwd);
+        } catch (Exception ignored) {
+            throw new BaseException(PASSWORD_ENCRYPTION_ERROR);
+        }
+
+        if(!user.getPassword().equals(pwd)){
+            throw new BaseException(PASSWORD_NOT_EQUAL);
+        }
+
+        Long userId=user.getId();
+
+        String jwt = jwtService.createJwt(userId);
+        return new PostUserRes(jwt,userId);
+    }
+
+
+    public PostFindPasswordRes findPassword(PostFindPasswordReq postFindPasswordReq) throws BaseException {
+
+
+        List<User> users = userRepository.findByEmail(postFindPasswordReq.getUserEmail());
+        if(users.isEmpty()){
+            throw new BaseException(LOGIN_USER_NOT_EXISTS_EMAIL);
+        }
+        User user=users.get(0);
+
+        String pwd;
+        try{
+            pwd = new AES128(Secret.USER_INFO_PASSWORD_KEY).decrypt(user.getPassword());
+        } catch (Exception ignored) {
+            throw new BaseException(PASSWORD_DECRYPTION_ERROR);
+        }
+
+        return new PostFindPasswordRes(pwd);
+    }
+
+    public PostUserRes createKakaoLogin(KakaoLoginReq kakaoLoginReq) throws BaseException {
+
+        List<User> users = userRepository.findByEmail(kakaoLoginReq.getUserEmail());
+        Long id;
+        if(users.isEmpty()){
+            User newUser=new User();
+            newUser.setEmail(kakaoLoginReq.getUserEmail());
+            newUser.setName(kakaoLoginReq.getUserName());
+
+            User savedUser = userRepository.save(newUser);
+            id=savedUser.getId();
+        }
+        else{
+            User user=users.get(0);
+            id=user.getId();
+        }
+
+        String jwt = jwtService.createJwt(id);
+        return new PostUserRes(jwt,id);
+    }
+
+
+
 }
