@@ -23,3 +23,13 @@ spring:
     password: dungiapp
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  mvc:
+    static-path-pattern: /static/**
+    static-locations: file:/resources/static
+    add-mappings: true
+
+  servlet:
+    multipart:
+      max-file-size: 512MB
+      max-request-size: 512MB
+

@@ -5,6 +5,7 @@ package com.example.demo.src.user;
 //import org.apache.http.HttpEntity;
 //import org.apache.http.HttpHeaders;
 
+import com.example.demo.config.BaseResponseStatus;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -27,6 +28,10 @@ import org.springframework.web.client.RestTemplate;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 
+import javax.sound.midi.SysexMessage;
+import java.util.HashMap;
+
+import static com.example.demo.config.BaseResponseStatus.PASSWORD_ENCRYPTION_ERROR;
 
 
 @RestController
@@ -76,10 +81,11 @@ public class UserController {
 
 
         try {
+            System.out.println("aaa");
             PostUserRes postUserRes = userService.createUser(postUserReq);
             return new BaseResponse<>(postUserRes);
         } catch (BaseException exception) {
-            return new BaseResponse<>((exception.getStatus()));
+            return new BaseResponse<>(exception.getStatus());
         }
     }
 
@@ -151,9 +157,8 @@ public class UserController {
             KakaoLoginReq kakaoLoginReq = new KakaoLoginReq(account.get("email").toString(), profile.get("nickname").toString());
             PostUserRes postUserRes = userService.createKakaoLogin(kakaoLoginReq);
             return new BaseResponse<>(postUserRes);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return  new BaseResponse<>(new PostUserRes("aa",1L));
+        } catch (Exception ignored) {
+            throw new BaseException(PASSWORD_ENCRYPTION_ERROR);
         }
     }
 
