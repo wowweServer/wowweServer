@@ -1,5 +1,7 @@
 com/example/demo/src/video/VideoService.java
  com.example.demo.src.video.VideoService
+com/example/demo/config/MvcConfiguration.java
+ com.example.demo.config.MvcConfiguration
 com/example/demo/src/user/model/PostUserReq.java
  com.example.demo.src.user.model.PostUserReq
 com/example/demo/src/video/model/Video.java
@@ -7,8 +9,6 @@ com/example/demo/src/video/model/Video.java
  com.example.demo.src.video.model.Video$VideoBuilder
 com/example/demo/config/Constant.java
  com.example.demo.config.Constant
-com/example/demo/utils/JwtService.java
- com.example.demo.utils.JwtService
 com/example/demo/src/file/model/File.java
  com.example.demo.src.file.model.File
  com.example.demo.src.file.model.File$FileBuilder
@@ -60,7 +60,7 @@ com/example/demo/config/BaseException.java
  com.example.demo.config.BaseException
 com/example/demo/DemoApplication.java
  com.example.demo.DemoApplication
-com/example/demo/config/MvcConfiguration.java
- com.example.demo.config.MvcConfiguration
+com/example/demo/utils/JwtService.java
+ com.example.demo.utils.JwtService
 com/example/demo/src/video/VideoController.java
  com.example.demo.src.video.VideoController

@@ -43,7 +43,7 @@ public class VideoController {
             String current_date = simpleDateFormat.format(new Date());
 
 
-            logger.info("aaaaaaaaaaaa");
+
 
             String basePath = new File("").getAbsolutePath() + "/src/main/resources/static/";
             String[] fileFlags = file.getOriginalFilename().split("\\.");
@@ -55,7 +55,7 @@ public class VideoController {
             FFprobe ffprobe=new FFprobe("/usr/bin/ffprobe");
 
             FFmpegProbeResult probeResult =ffprobe.probe(filePath);
-            System.out.println(probeResult.getFormat().filename);
+            logger.warn(probeResult.getFormat().filename);
 
             return new BaseResponse(SUCCESS);
         }
