@@ -6,7 +6,9 @@ import com.example.demo.src.file.FileService;
 import com.example.demo.src.video.model.VideoDto;
 import jdk.internal.jline.internal.Log;
 import net.bramp.ffmpeg.FFmpeg;
+import net.bramp.ffmpeg.FFmpegExecutor;
 import net.bramp.ffmpeg.FFprobe;
+import net.bramp.ffmpeg.builder.FFmpegBuilder;
 import net.bramp.ffmpeg.probe.FFmpegProbeResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,8 +56,20 @@ public class VideoController {
             FFmpeg ffmpeg=new FFmpeg("/usr/bin/ffmpeg");
             FFprobe ffprobe=new FFprobe("/usr/bin/ffprobe");
 
-            FFmpegProbeResult probeResult =ffprobe.probe(filePath);
-            logger.warn(probeResult.getFormat().filename);
+
+
+            FFmpegBuilder builder = new FFmpegBuilder()
+                    .overrideOutputFiles(true)
+                    .setInput(filePath)
+                    .addExtraArgs("-ss","00:00:01")
+                    .addOutput(basePath)
+                    .setFrames(1)
+                    .done();
+
+            FFmpegExecutor executor = new FFmpegExecutor(ffmpeg,ffprobe);
+            executor.createJob(builder).run();
+            
+
 
             return new BaseResponse(SUCCESS);
         }
