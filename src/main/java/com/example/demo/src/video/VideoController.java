@@ -34,7 +34,7 @@ public class VideoController {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
             String current_date = simpleDateFormat.format(new Date());
 
-            String basePath = new File("").getAbsolutePath() + "/src/main/resources/static/";
+            String basePath = new File("").getAbsolutePath() + "../../src/main/resources/static/";
             String[] fileFlags = file.getOriginalFilename().split("\\.");
             String filePath = basePath + current_date + "." + fileFlags[fileFlags.length-1];
             File dest = new File(filePath);
