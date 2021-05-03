@@ -62,13 +62,13 @@ public class VideoController {
                     .overrideOutputFiles(true)
                     .setInput(filePath)
                     .addExtraArgs("-ss","00:00:01")
-                    .addOutput(basePath)
+                    .addOutput(basePath+"thumnail.png")
                     .setFrames(1)
                     .done();
 
             FFmpegExecutor executor = new FFmpegExecutor(ffmpeg,ffprobe);
             executor.createJob(builder).run();
-            
+
 
 
             return new BaseResponse(SUCCESS);
