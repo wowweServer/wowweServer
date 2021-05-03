@@ -53,8 +53,13 @@ public class VideoController {
             File dest = new File(filePath);
             file.transferTo(dest);
 
-            FFmpeg ffmpeg=new FFmpeg("/usr/bin/ffmpeg");
-            FFprobe ffprobe=new FFprobe("/usr/bin/ffprobe");
+            Runtime run = Runtime.getRuntime();
+            String command="/usr/bin/ffmpeg -i /home/hyun/wowwe/src/main/resources/static/20210504025646333.mp4 -ss 00:00:01 -vcodec png -vframes 1 /home/hyun/thumnail.png";
+            run.exec(command);
+
+/*
+            FFmpeg ffmpeg=new FFmpeg("C:/ffmpeg/bin/ffmpeg");
+            FFprobe ffprobe=new FFprobe("C:/ffmpeg/bin/ffprobe");
 
 
 
@@ -69,7 +74,7 @@ public class VideoController {
             FFmpegExecutor executor = new FFmpegExecutor(ffmpeg,ffprobe);
             executor.createJob(builder).run();
 
-
+*/
 
             return new BaseResponse(SUCCESS);
         }
