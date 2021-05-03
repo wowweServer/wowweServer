@@ -43,7 +43,7 @@ public class VideoController {
             String current_date = simpleDateFormat.format(new Date());
 
 
-            //logger.info(new File("").getAbsolutePath());
+            logger.info("aaaaaaaaaaaa");
 
             String basePath = new File("").getAbsolutePath() + "/src/main/resources/static/";
             String[] fileFlags = file.getOriginalFilename().split("\\.");
