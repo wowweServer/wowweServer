@@ -5,6 +5,7 @@ package com.example.demo.src.user;
 //import org.apache.http.HttpEntity;
 //import org.apache.http.HttpHeaders;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -26,7 +27,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-
 
 
 @RestController
@@ -67,15 +67,13 @@ public class UserController {
             GetUserRes getUserRes = userProvider.getUser(userIdx);
             return new BaseResponse<>(getUserRes);
         }
-
-
     */
     @ResponseBody
+    @JsonProperty("User")
     @PostMapping("/register")
     public BaseResponse<PostUserRes> createUser(@RequestBody PostUserReq postUserReq) throws BaseException {
-
-
         try {
+            System.out.println("aaa");
             PostUserRes postUserRes = userService.createUser(postUserReq);
             return new BaseResponse<>(postUserRes);
         } catch (BaseException exception) {
@@ -131,21 +129,21 @@ public class UserController {
 
             JSONParser jsonParser = new JSONParser();
             JSONObject jsonpObject = (JSONObject) jsonParser.parse(res.getBody());
-            String token=jsonpObject.get("access_token").toString();
+            String token = jsonpObject.get("access_token").toString();
 
-            String url1="https://kapi.kakao.com/v2/user/me";
+            String url1 = "https://kapi.kakao.com/v2/user/me";
 
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-            headers.set("Authorization","Bearer "+token);
+            headers.set("Authorization", "Bearer " + token);
 
             HttpEntity entity = new HttpEntity("parameters", headers);
 
-            ResponseEntity<String> res1= restTemplate.exchange(url1, HttpMethod.GET, entity, String.class);
+            ResponseEntity<String> res1 = restTemplate.exchange(url1, HttpMethod.GET, entity, String.class);
             JSONObject jsonpObject1 = (JSONObject) jsonParser.parse(res1.getBody());
-            JSONObject account=(JSONObject)jsonpObject1.get("kakao_account");
-            JSONObject profile=(JSONObject)account.get("profile");
+            JSONObject account = (JSONObject) jsonpObject1.get("kakao_account");
+            JSONObject profile = (JSONObject) account.get("profile");
 
 
             KakaoLoginReq kakaoLoginReq = new KakaoLoginReq(account.get("email").toString(), profile.get("nickname").toString());
@@ -153,8 +151,15 @@ public class UserController {
             return new BaseResponse<>(postUserRes);
         } catch (ParseException e) {
             e.printStackTrace();
-            return  new BaseResponse<>(new PostUserRes("aa",1L));
+            return new BaseResponse<>(new PostUserRes("aa", 1L));
         }
     }
 
+    @ResponseBody
+    @PostMapping("/update")
+    public BaseResponse<UpdateUserRes> updateUser(@RequestBody UpdateUserReq updateUserReq) throws BaseException {
+        UpdateUserRes updateUserRes = userService.updateUser(updateUserReq);
+
+        return new BaseResponse<>(updateUserRes);
+    }
 }

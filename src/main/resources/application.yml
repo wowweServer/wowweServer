@@ -1,13 +1,14 @@
 server:
   port: ${port:9000}
 
+
 spring:
   application:
     name: demo
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     generate-ddl: false
@@ -18,8 +19,12 @@ spring:
 
   datasource:
     platform: mysql
-    url: jdbc:mysql://dungiapp.ctezwyeyfqua.ap-northeast-2.rds.amazonaws.com/wow?autoReconnect=true
+    url: jdbc:mysql://dungiapp.ctezwyeyfqua.ap-northeast-2.rds.amazonaws.com/cj?autoReconnect=true
     username: dungiapp
     password: dungiapp
     driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:h2:tcp://localhost/~/wowwe
+#    username: sa
+#    password:
+#    driver-class-name: org.h2.Driver
 
