@@ -15,8 +15,8 @@ public class VideoApi {
     @Autowired
     VideoService videoService;
 
-    @GetMapping("/video_duration/{offset}/{limit}")
-    public BaseResponse<Page<VideoResDto>> findByDuration(@PathVariable("offset") int offset, @PathVariable("limit") int limit) {
+    @GetMapping("/loadRecentVideo")
+    public BaseResponse<Page<VideoResDto>> findByDuration(@RequestParam("offset") int offset, @RequestParam("limit") int limit) {
         int duration = 8;
         Page<VideoResDto> page = videoService.findByDuration(offset, limit, duration);
         return new BaseResponse<>(page);

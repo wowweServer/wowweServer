@@ -73,8 +73,8 @@ class VideoLikeRepositoryTest {
         Page<VideoLike> page = videoLikeRepository.findVideoByLike(pageRequest);
 
         // 뭐냐 아예 객체 보내고 내부에서 처리하는 게 훨씬 낫겠다 너무 귀찮다
-        Page<TopLikeVideoResDto> apiDto = page.map(vl -> new TopLikeVideoResDto(vl.getVideo().getId(), 
-                vl.getVideo().getThumnailImg(), vl.getVideo().getTitle(), vl.getVideo().getCreatedTime(), vl.getUser().getId(), vl.getUser().getName()));
+        Page<TopLikeVideoResDto> apiDto = page.map(vl -> new TopLikeVideoResDto(vl.getVideo().getId(),
+                vl.getVideo().getThumnailImg(), vl.getVideo().getTitle(), vl.getVideo().getCreatedTime(), videoLikeRepository.findVideoLikesById(vl.getVideo().getId()), vl.getUser().getId(), vl.getUser().getName()));
 
         List<VideoLike> content = page.getContent();
 
@@ -84,6 +84,15 @@ class VideoLikeRepositoryTest {
             System.out.println("videoid : " + videoLike.getVideo().getId() + "video_count : " + videoLike.getVideo().getVideoLikes().size());
 
         }
+    }
+
+    @Test
+    public void 비디오좋아요갯수검사() {
+
+        int videoLikesById = videoLikeRepository.findVideoLikesById(17L);
+
+        System.out.println("videoLikes = " + videoLikesById);
+
     }
 
 

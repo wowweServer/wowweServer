@@ -1,14 +1,16 @@
 package com.example.demo.src.videoLike.dto;
 
 import com.example.demo.src.video.dto.UserDto;
+import com.example.demo.src.videoLike.model.VideoLike;
 import lombok.Data;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
 @Data
 public class TopLikeVideoResDto {
 
-    private Long Videoid;
+    private Long videoid;
     private String videoImg;
     private String videoTitle;
     private int videoLength;
@@ -19,18 +21,27 @@ public class TopLikeVideoResDto {
     private int likes;
     private String tag;
 
-    private String  uesrId;
-    private String userName;
-
     private UserDto userDto;
 
-    public TopLikeVideoResDto(Long videoid, String videoImg, String videoTitle, LocalDateTime createdAt, Long userId, String userName) {
 
-        this.Videoid = videoid;
+    public TopLikeVideoResDto(VideoLike vl, int likes) {
+        this.videoid = vl.getVideo().getId();
+        this.videoImg = vl.getVideo().getThumnailImg();
+        this.videoTitle = vl.getVideo().getTitle();
+        this.createdAt = vl.getVideo().getCreatedTime();
+        this.likes = likes;
+
+        this.userDto =  new UserDto(vl.getUser().getId(), vl.getUser().getName());
+
+    }
+
+    public TopLikeVideoResDto(Long videoid, String videoImg, String videoTitle, LocalDateTime createdAt, int likes, Long userId, String userName) {
+
+        this.videoid = videoid;
         this.videoImg = videoImg;
         this.videoTitle = videoTitle;
         this.createdAt = createdAt;
-
+        this.likes = likes;
         this.userDto = new UserDto(userId, userName);
 
     }

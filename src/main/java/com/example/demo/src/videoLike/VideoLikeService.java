@@ -32,12 +32,11 @@ public class VideoLikeService {
     public Page<TopLikeVideoResDto> topLikeVideoPaging(int offset, int limit) {
         PageRequest pageRequest = PageRequest.of(offset, limit);
         Page<VideoLike> page = videoLikeRepository.findVideoByLike(pageRequest);
-        Page<TopLikeVideoResDto> apiDto = page.map(vl -> new TopLikeVideoResDto(vl.getVideo().getId(),
-                vl.getVideo().getThumnailImg(), vl.getVideo().getTitle(), vl.getVideo().getCreatedTime(), vl.getUser().getId(), vl.getUser().getName()));
+        Page<TopLikeVideoResDto> apiDto = page.map(vl -> new TopLikeVideoResDto(vl, videoLikeRepository.findVideoLikesById(vl.getVideo().getId())));
 
         return apiDto;
     }
-
+//    좀 줄이자  그리고 int 어떻게 전달
 
     @Transactional
     public void videoLike(Long userId, Long videoId) {
@@ -51,6 +50,13 @@ public class VideoLikeService {
         if (user.isPresent() && video.isPresent()) {
             videoLikeRepository.save(new VideoLike(user.get(), video.get()));
         }
-
     }
+
+    @Transactional
+    public int checkVideoLikeCount(Long videoId) {
+        int videoLikesById = videoLikeRepository.findVideoLikesById(videoId);
+
+        return videoLikesById;
+    }
+
 }

@@ -33,4 +33,5 @@ public class VideoLike {
         user.videoAddLike(this);
         video.videoAddLike(this);
     }
+
 }

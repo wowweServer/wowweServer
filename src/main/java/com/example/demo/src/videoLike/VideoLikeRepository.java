@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface VideoLikeRepository extends JpaRepository<VideoLike, Long> {
 
@@ -16,6 +18,7 @@ public interface VideoLikeRepository extends JpaRepository<VideoLike, Long> {
     public Page<VideoLike> findVideoByLike(Pageable pageable);
 
 
-
+    @Query("select count(vl) from VideoLike vl where vl.video.id = :id")
+    public int findVideoLikesById(@Param("id") Long id);
 
 }
