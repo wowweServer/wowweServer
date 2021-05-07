@@ -1,6 +1,7 @@
 package com.example.demo.src.user.model;
 
 import com.example.demo.config.BaseTimeEntity;
+import com.example.demo.src.videoComment.model.VideoComment;
 import com.example.demo.src.videoLike.model.VideoLike;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +28,10 @@ public class User extends BaseTimeEntity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<VideoLike> videoLikes = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<VideoComment> videoComments = new ArrayList<>();
+
+
 
     public User() {
 
@@ -44,7 +49,11 @@ public class User extends BaseTimeEntity {
     public void videoAddLike(VideoLike videoLike) {
         this.videoLikes.add(videoLike);
         videoLike.setUser(this);
+    }
 
+    public void videoAddComment(VideoComment videoComment) {
+        this.videoComments.add(videoComment);
+        videoComment.setUser(this);
     }
 
     public void updateUser(UpdateUserReq user) {

@@ -2,6 +2,7 @@ package com.example.demo.src.video.model;
 
 import com.example.demo.config.BaseTimeEntity;
 import com.example.demo.src.user.model.User;
+import com.example.demo.src.videoComment.model.VideoComment;
 import com.example.demo.src.videoLike.model.VideoLike;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,9 +40,11 @@ public class Video extends BaseTimeEntity {
     @OneToMany(mappedBy = "video", cascade = CascadeType.ALL)
     private List<VideoLike> videoLikes = new ArrayList<>();
 
-
+    @OneToMany(mappedBy = "video", cascade = CascadeType.ALL)
+    private List<VideoComment> videoComments = new ArrayList<>();
 
     public Video(Long id, String fileUrl, String title, String description, boolean isLive, String thumnailImg, int duration, LocalDateTime startTime) {
+
         this.id = id;
         this.fileUrl = fileUrl;
         this.title = title;
@@ -78,4 +81,8 @@ public class Video extends BaseTimeEntity {
         videoLikes.setVideo(this);
     }
 
+    public void videoAddComment(VideoComment videoComment) {
+        this.videoComments.add(videoComment);
+        videoComment.setVideo(this);
+    }
 }
