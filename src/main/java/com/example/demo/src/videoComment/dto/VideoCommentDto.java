@@ -1,16 +1,34 @@
 package com.example.demo.src.videoComment.dto;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Data
 public class VideoCommentDto {
 
-    private String comment;
-    private String userName;
+    private Long id;
+    private String commentText;
+    private LocalDateTime createdAt;
 
-    public VideoCommentDto(String comment, String userName) {
-        this.comment = comment;
-        this.userName = userName;
+    public VideoCommentDto(Long id, String commentText, LocalDateTime createdAt) {
+        this.id = id;
+        this.commentText = commentText;
+        this.createdAt = createdAt;
     }
 }
+//    response
+//    {
+//        success:true,
+//                status:201,
+//            data:{
+//        videoId:Integer,
+//                Comment:[
+//        {
+//            id:Integer,
+//                    commentText:String,
+//                createdAt:<Date>,
+//                User:{
+//            id:Integer,
+//                    userName:String
+//        }
