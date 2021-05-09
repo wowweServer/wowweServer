@@ -18,9 +18,6 @@ public class TimeVideoResDto {
     private int likes;
     private String tag;
 
-    private String  uesrId;
-    private String userName;
-
     private UserDto userDto;
 
     public TimeVideoResDto(Long videoid, String videoImg, String videoTitle, LocalDateTime createdAt, Long userId, String userName) {

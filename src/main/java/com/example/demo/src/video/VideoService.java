@@ -1,5 +1,6 @@
 package com.example.demo.src.video;
 
+import com.example.demo.src.video.dto.SearchVideoResDto;
 import com.example.demo.src.video.dto.TimeVideoResDto;
 import com.example.demo.src.video.dto.VideoResDto;
 import com.example.demo.src.video.model.Video;
@@ -7,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,6 +49,16 @@ public class VideoService {
 
 
     @Transactional
+    public Page<SearchVideoResDto> searchVideoPaging(int offset, int limit, String title) {
+        PageRequest pageRequest = PageRequest.of(offset, limit);
+        Page<Video> page = videoRepository.findByTitle(title, pageRequest);
+        Page<SearchVideoResDto> apiDto = page.map(v -> new SearchVideoResDto(v.getId(), v.getTitle(), v.getCreatedTime()));
+
+        return apiDto;
+    }
+
+
+    @Transactional
     public Page<TimeVideoResDto> recentlyVideoPaging(int offset, int limit) {
         PageRequest pageRequest = PageRequest.of(offset, limit, Sort.Direction.DESC, "createdTime");
 
@@ -62,5 +74,8 @@ public class VideoService {
         Optional<Video> video = videoRepository.findById(videoId);
         return video.get();
     }
+
+
+
 
 }

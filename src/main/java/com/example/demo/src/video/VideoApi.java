@@ -1,6 +1,8 @@
 package com.example.demo.src.video;
 
 import com.example.demo.config.BaseResponse;
+import com.example.demo.src.video.dto.SearchVideoReqDto;
+import com.example.demo.src.video.dto.SearchVideoResDto;
 import com.example.demo.src.video.dto.TimeVideoResDto;
 import com.example.demo.src.video.dto.VideoResDto;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,23 @@ public class VideoApi {
 
     @Autowired
     VideoService videoService;
+
+    @PostMapping("/searchVideo/{offset}/{limit}")
+    public BaseResponse<Page<SearchVideoResDto>> searchVideoByTitle(@PathVariable("offset") int offset,
+                                                                    @PathVariable("limit") int limit,
+                                                                    @RequestBody SearchVideoReqDto searchVideoReqDto) {
+        Page<SearchVideoResDto> searchVideoPaging = videoService.searchVideoPaging(offset, limit, searchVideoReqDto.getTitle());
+
+        return new BaseResponse<>(searchVideoPaging);
+    }
+    @PostMapping("/searchVideo")
+    public BaseResponse<Page<SearchVideoResDto>> searchVideoByTitle2(@RequestParam int offset,
+                                                                    @RequestParam int limit,
+                                                                    @RequestBody SearchVideoReqDto searchVideoReqDto) {
+        Page<SearchVideoResDto> searchVideoPaging = videoService.searchVideoPaging(offset, limit, searchVideoReqDto.getTitle());
+
+        return new BaseResponse<>(searchVideoPaging);
+    }
 
     @GetMapping("/loadRecentVideo")
     public BaseResponse<Page<VideoResDto>> findByDuration(@RequestParam("offset") int offset, @RequestParam("limit") int limit) {
