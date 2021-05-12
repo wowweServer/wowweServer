@@ -9,9 +9,13 @@ import com.example.demo.src.video.dto.UserDto;
 import com.example.demo.src.video.model.Video;
 import com.example.demo.src.videoComment.dto.*;
 import com.example.demo.src.videoComment.model.VideoComment;
+import com.example.demo.utils.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import static com.example.demo.config.BaseResponseStatus.LOGIN_USER_NOT_EQUAL_HOST;
+import static com.example.demo.config.BaseResponseStatus.LOGIN_USER_NOT_EXISTS_EMAIL;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,11 +28,13 @@ public class VideoCommentApi {
     @Autowired
     VideoService videoService;
 
+    @Autowired
+    JwtService jwtService;
+
     @PostMapping("/video/{videoId}/addComment")
     public BaseResponse<VideoCommentResDto> registerComment(@PathVariable("videoId") Long videoId, @RequestBody VideoCommentReqDto videoCommentDto) throws BaseException {
 
-//      유저 가져오는 로직이 있어야 합니다  로그인 되어 있으면
-        Long userId = videoCommentDto.getUserId();
+        Long userId = jwtService.getUserId();
 
         String comment = videoCommentDto.getComment();
 
@@ -47,10 +53,16 @@ public class VideoCommentApi {
 
 
     @PostMapping("/video/editComment")
-    public BaseResponse<VideoCommentUpdateResDto> updateComment(@RequestBody VideoCommentUpdateReqDto videoCommentUpdateReqDto) {
+    public BaseResponse<VideoCommentUpdateResDto> updateComment(@RequestBody VideoCommentUpdateReqDto videoCommentUpdateReqDto) throws BaseException {
+
+        Long userId = jwtService.getUserId();
 
         Long commentId = videoCommentUpdateReqDto.getCommentId();
         VideoComment videoComment = videoCommentService.findById(commentId);
+        if (videoComment.getUser().getId().equals(userId)) {
+            throw new BaseException(LOGIN_USER_NOT_EQUAL_HOST);
+        }
+
         videoCommentService.update(videoComment, videoCommentUpdateReqDto.getCommentText());
 
         videoComment.setComment(videoCommentUpdateReqDto.getCommentText());
@@ -63,10 +75,16 @@ public class VideoCommentApi {
     }
 
     @DeleteMapping("/video/removeComment")
-    private BaseResponse<VideoCommentDeleteResDto> deleteComment(@RequestBody VideoCommentDeleteReqDto videoCommentDeleteReqDto) {
+    private BaseResponse<VideoCommentDeleteResDto> deleteComment(@RequestBody VideoCommentDeleteReqDto videoCommentDeleteReqDto) throws BaseException {
+
+        Long userId = jwtService.getUserId();
 
         Long commentId = videoCommentDeleteReqDto.getCommentId();
         VideoComment videoComment = videoCommentService.findById(commentId);
+        if (videoComment.getUser().getId().equals(userId)) {
+            throw new BaseException(LOGIN_USER_NOT_EQUAL_HOST);
+        }
+
         videoCommentService.delete(commentId);
         VideoCommentDeleteResDto videoCommentDeleteResDto = new VideoCommentDeleteResDto(videoComment.getVideo().getId(), commentId);
         return new BaseResponse<>(videoCommentDeleteResDto);

@@ -11,7 +11,7 @@ public class UpdateUserReq {
 
 //    private String jwt;
 
-    private Long id;
+//    private Long id;
 
     private String name;
     private String email;

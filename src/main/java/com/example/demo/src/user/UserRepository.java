@@ -13,7 +13,8 @@ import java.util.Optional;
 public interface UserRepository extends CrudRepository<User,Long> {
     User save(User user);
 
-    List<User> findByEmail(String email);
+
+    Optional<User> findByEmail(String email);
 
 
     @Query("select u from User u where u.Id = :id")

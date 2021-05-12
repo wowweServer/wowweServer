@@ -36,7 +36,7 @@ public class UserService {
 
     public PostUserRes createUser(PostUserReq postUserReq) throws BaseException {
 
-        if(!userRepository.findByEmail(postUserReq.getUserEmail()).isEmpty()){
+        if(userRepository.findByEmail(postUserReq.getUserEmail()).isPresent()){
             throw new BaseException(POST_USER_EXISTS_EMAIL);
         }
 
@@ -64,21 +64,23 @@ public class UserService {
 
     public PostUserRes createLogin(PostLoginReq postLoginReq) throws BaseException {
 
-        List<User> users = userRepository.findByEmail(postLoginReq.getUserEmail());
-        if(users.isEmpty()){
+        Optional<User> users = userRepository.findByEmail(postLoginReq.getUserEmail());
+        if(!users.isPresent()){
             throw new BaseException(LOGIN_USER_NOT_EXISTS_EMAIL);
         }
-        User user=users.get(0);
+
+        User user = users.get();
 
         String pwd;
         try{
             pwd = new AES128(Secret.USER_INFO_PASSWORD_KEY).encrypt(postLoginReq.getPassword());
-            postLoginReq.setPassword(pwd);
+//            postLoginReq.setPassword(pwd);
         } catch (Exception ignored) {
             throw new BaseException(PASSWORD_ENCRYPTION_ERROR);
         }
 
-        if(!user.getPassword().equals(pwd)){
+        if (!user.getPassword().equals(pwd)) {
+
             throw new BaseException(PASSWORD_NOT_EQUAL);
         }
 
@@ -92,11 +94,11 @@ public class UserService {
     public PostFindPasswordRes findPassword(PostFindPasswordReq postFindPasswordReq) throws BaseException {
 
 
-        List<User> users = userRepository.findByEmail(postFindPasswordReq.getUserEmail());
-        if(users.isEmpty()){
+        Optional<User> users = userRepository.findByEmail(postFindPasswordReq.getUserEmail());
+        if(users.isPresent()){
             throw new BaseException(LOGIN_USER_NOT_EXISTS_EMAIL);
         }
-        User user=users.get(0);
+        User user=users.get();
 
         String pwd;
         try{
@@ -110,9 +112,9 @@ public class UserService {
 
     public PostUserRes createKakaoLogin(KakaoLoginReq kakaoLoginReq) throws BaseException {
 
-        List<User> users = userRepository.findByEmail(kakaoLoginReq.getUserEmail());
+        Optional<User> users = userRepository.findByEmail(kakaoLoginReq.getUserEmail());
         Long id;
-        if(users.isEmpty()){
+        if(users.isPresent()){
             User newUser=new User();
             newUser.setEmail(kakaoLoginReq.getUserEmail());
             newUser.setName(kakaoLoginReq.getUserName());
@@ -121,7 +123,7 @@ public class UserService {
             id=savedUser.getId();
         }
         else{
-            User user=users.get(0);
+            User user=users.get();
             id=user.getId();
         }
 
@@ -133,13 +135,15 @@ public class UserService {
     @Transactional
     public UpdateUserRes updateUser(UpdateUserReq updateUserReq) throws BaseException {
 
-        Optional<User> byId = userRepository.findById(updateUserReq.getId());
+        Long userId = jwtService.getUserId();
+
+        Optional<User> byId = userRepository.findById(userId);
 
         if (byId.isPresent()) {
             byId.get().updateUser(updateUserReq);
         }
 
-        return new UpdateUserRes(updateUserReq.getId());
+        return new UpdateUserRes(userId);
     }
 
 

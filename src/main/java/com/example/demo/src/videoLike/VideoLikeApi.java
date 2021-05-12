@@ -6,6 +6,7 @@ import com.example.demo.config.BaseResponse;
 import com.example.demo.src.videoLike.dto.AddLikeDto;
 import com.example.demo.src.videoLike.dto.AddLikeResDto;
 import com.example.demo.src.videoLike.dto.TopLikeVideoResDto;
+import com.example.demo.utils.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +18,8 @@ public class VideoLikeApi {
 
     @Autowired
     VideoLikeService videoLikeService;
+    @Autowired
+    JwtService jwtService;
 
     @GetMapping("/loadTop100Video")
     public BaseResponse<Page<TopLikeVideoResDto>> paging(@RequestParam int offset, @RequestParam int limit) {
@@ -26,11 +29,12 @@ public class VideoLikeApi {
     }
 
     @PostMapping("/video/{videoId}/addLike")
-    public BaseResponse<AddLikeDto> addlike(@PathVariable("videoId") Long videoId, @RequestBody AddLikeDto addLikeDto) throws BaseException {
+    public BaseResponse<String> addlike(@PathVariable("videoId") Long videoId) throws BaseException {
 
-        videoLikeService.videoLike(addLikeDto.getUserId(), videoId);
+        Long userId = jwtService.getUserId();
+        videoLikeService.videoLike(userId, videoId);
 
-        return new BaseResponse<>(addLikeDto);
+        return new BaseResponse<>("");
 
     }
 }

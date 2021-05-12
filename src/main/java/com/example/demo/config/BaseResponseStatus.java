@@ -16,6 +16,8 @@ public enum BaseResponseStatus {
     PASSWORD_NOT_EQUAL(false, 2011, "비밀번호가 일치하지 않습니다."),
     POST_USER_EXISTS_EMAIL(false,2017,"중복된 이메일입니다."),
     LOGIN_USER_NOT_EXISTS_EMAIL(false,2018,"존재하지않는 이메일입니다."),
+    LOGIN_USER_NOT_EQUAL_HOST(false,2019,"다른사용자입니다."),
+
 
 
     DATABASE_ERROR(false, 4000, "데이터베이스 연결에 실패하였습니다."),

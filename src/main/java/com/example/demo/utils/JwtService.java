@@ -29,6 +29,14 @@ public class JwtService {
                 .compact();
     }
 
+    public String createJwtTrash(String temp) {
+        Date now = new Date();
+        return Jwts.builder()
+                .claim("temp",temp)
+                .setIssuedAt(now)
+                .signWith(SignatureAlgorithm.HS256, Secret.JWT_SECRET_KEY)
+                .compact();
+    }
 
     public String getJwt(){
         HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();

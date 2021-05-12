@@ -45,13 +45,12 @@ public class UserController {
         this.userService = userService;
         this.jwtService = jwtService;
     }
-    
+
     @ResponseBody
     @JsonProperty("User")
     @PostMapping("/register")
     public BaseResponse<PostUserRes> createUser(@RequestBody PostUserReq postUserReq) throws BaseException {
         try {
-            System.out.println("aaa");
             PostUserRes postUserRes = userService.createUser(postUserReq);
             return new BaseResponse<>(postUserRes);
         } catch (BaseException exception) {
@@ -136,9 +135,18 @@ public class UserController {
     @ResponseBody
     @PostMapping("/update")
     public BaseResponse<UpdateUserRes> updateUser(@RequestBody UpdateUserReq updateUserReq) throws BaseException {
+
+
         UpdateUserRes updateUserRes = userService.updateUser(updateUserReq);
 
         return new BaseResponse<>(updateUserRes);
     }
 
+    @GetMapping("/logout")
+    public BaseResponse<String> logoutUser() {
+
+        String tempJwt = jwtService.createJwtTrash("askjfnadkgnajdgnaegi");
+
+        return new BaseResponse<>(tempJwt);
+    }
 }
