@@ -2,6 +2,7 @@ package com.example.demo.src.video;
 
 import com.example.demo.config.BaseResponse;
 import com.example.demo.src.video.dto.*;
+import com.example.demo.src.video.model.Video;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,6 +29,16 @@ public class VideoApi {
         Page<SearchVideoResDto> searchVideoResDtos = videoService.searchVideoPaging(offset, limit, searchVideoReqDto.getTitle());
 
         return new BaseResponse<>(searchVideoResDtos);
+    }
+
+
+    @DeleteMapping("/video/{videoId}/removeVideo")
+    public BaseResponse<String> deleteVideo(@PathVariable("videoId") Long videoId) {
+
+        Video video = videoService.findById(videoId);
+        videoService.delete(video);
+
+        return new BaseResponse<>("");
     }
 }
 

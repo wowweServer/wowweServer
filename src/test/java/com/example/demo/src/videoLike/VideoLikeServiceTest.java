@@ -3,6 +3,8 @@ package com.example.demo.src.videoLike;
 import com.example.demo.src.user.UserRepository;
 import com.example.demo.src.user.model.User;
 import com.example.demo.src.video.VideoRepository;
+import com.example.demo.src.video.VideoService;
+import com.example.demo.src.video.dto.TimeVideoResDto;
 import com.example.demo.src.video.model.Video;
 import com.example.demo.src.videoLike.dto.TopLikeVideoResDto;
 import org.junit.jupiter.api.Test;
@@ -29,6 +31,8 @@ class VideoLikeServiceTest {
     @Autowired
     VideoRepository videoRepository;
 
+    @Autowired
+    VideoService videoService;
 
     @Test
     public void 비디오좋아요누르기() {
@@ -49,6 +53,17 @@ class VideoLikeServiceTest {
 
         }
 
+
+    }
+
+    @Test
+    public void 최신영상받아오기() {
+        Page<TimeVideoResDto> recentlyVideoPaging = videoService.recentlyVideoPaging(0, 3);
+
+
+        for (TimeVideoResDto timeVideoResDto : recentlyVideoPaging) {
+            System.out.println("result : " + timeVideoResDto.getVideoTitle());
+        }
 
     }
 

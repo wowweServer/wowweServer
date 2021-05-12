@@ -37,6 +37,10 @@ public class VideoService {
     }
 
 
+    @Transactional
+    public void delete(Video video) {
+        videoRepository.delete(video);
+    }
 
 
 
