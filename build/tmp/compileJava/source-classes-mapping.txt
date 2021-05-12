@@ -6,9 +6,10 @@ com/example/demo/src/user/model/PostUserReq.java
  com.example.demo.src.user.model.PostUserReq
 com/example/demo/src/video/model/Video.java
  com.example.demo.src.video.model.Video
- com.example.demo.src.video.model.Video$VideoBuilder
 com/example/demo/config/Constant.java
  com.example.demo.config.Constant
+com/example/demo/src/video/model/VideoReq.java
+ com.example.demo.src.video.model.VideoReq
 com/example/demo/src/file/model/File.java
  com.example.demo.src.file.model.File
  com.example.demo.src.file.model.File$FileBuilder
@@ -34,9 +35,6 @@ com/example/demo/src/user/model/PostLoginReq.java
  com.example.demo.src.user.model.PostLoginReq
 com/example/demo/src/video/VideoRepository.java
  com.example.demo.src.video.VideoRepository
-com/example/demo/src/video/model/VideoDto.java
- com.example.demo.src.video.model.VideoDto
- com.example.demo.src.video.model.VideoDto$VideoDtoBuilder
 com/example/demo/config/secret/Secret.java
  com.example.demo.config.secret.Secret
 com/example/demo/src/file/model/FileDto.java
@@ -64,3 +62,5 @@ com/example/demo/utils/JwtService.java
  com.example.demo.utils.JwtService
 com/example/demo/src/video/VideoController.java
  com.example.demo.src.video.VideoController
+com/example/demo/src/video/model/VideoRes.java
+ com.example.demo.src.video.model.VideoRes

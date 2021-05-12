@@ -1,27 +1,32 @@
 package com.example.demo.src.video.model;
 
+import com.example.demo.src.user.model.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
+@Setter
 @Entity
 @NoArgsConstructor
 public class Video {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="VIDEO_ID")
     private Long id;
 
-    private Long fileId;
+    private String title;
+    private String description;
+    private String videoUrl;
+    private String thumnailUrl;
+    private double duration;
 
-    @Builder
-    public Video(Long id, Long fileId) {
-        this.id = id;
-        this.fileId = fileId;
-    }
+    @ManyToOne
+    @JoinColumn(name="USER_ID")
+    private User user;
+
 }

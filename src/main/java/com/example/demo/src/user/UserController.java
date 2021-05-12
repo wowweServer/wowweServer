@@ -34,6 +34,7 @@ import java.util.HashMap;
 import static com.example.demo.config.BaseResponseStatus.PASSWORD_ENCRYPTION_ERROR;
 
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -51,6 +52,12 @@ public class UserController {
         this.jwtService = jwtService;
     }
 
+    @ResponseBody
+    @GetMapping("")
+    public String welcome() {
+
+        return "hello developers";
+    }
 
     /*
 
@@ -81,7 +88,7 @@ public class UserController {
 
 
         try {
-            System.out.println("aaa");
+
             PostUserRes postUserRes = userService.createUser(postUserReq);
             return new BaseResponse<>(postUserRes);
         } catch (BaseException exception) {
@@ -128,7 +135,7 @@ public class UserController {
                     .build();
             factory.setHttpClient(httpClient);
             RestTemplate restTemplate = new RestTemplate(factory);
-            String url = "https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=1941893462dfad4f46b2ccc179a60d07&redirect_uri=https://wowwe.rigingprogrammertest.site/user/kakao/callback&client_secret=I3e0bBYVMgFpXqIiDkUVVAuRcgJslXy2&code=" + code;
+            String url = "https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=1941893462dfad4f46b2ccc179a60d07&redirect_uri=http://localhost:9000/user/kakao/callback&client_secret=I3e0bBYVMgFpXqIiDkUVVAuRcgJslXy2&code=" + code;
 
 
             MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
