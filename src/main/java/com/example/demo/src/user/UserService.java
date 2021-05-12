@@ -95,7 +95,7 @@ public class UserService {
 
 
         Optional<User> users = userRepository.findByEmail(postFindPasswordReq.getUserEmail());
-        if(users.isPresent()){
+        if(!users.isPresent()){
             throw new BaseException(LOGIN_USER_NOT_EXISTS_EMAIL);
         }
         User user=users.get();
