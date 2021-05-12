@@ -30,7 +30,6 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/user")
 public class UserController {
     final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -46,29 +45,7 @@ public class UserController {
         this.userService = userService;
         this.jwtService = jwtService;
     }
-
-
-    /*
-
-        //Query String
-        @ResponseBody
-        @GetMapping("") // (GET) 127.0.0.1:9000/app/users
-        public BaseResponse<List<GetUserRes>> getUsers(@RequestParam(required = false) String Email) {
-            // Get Users
-            List<GetUserRes> getUsersRes = userProvider.getUsers(Email);
-            return new BaseResponse<>(getUsersRes);
-        }
-
-
-        // Path-variable
-        @ResponseBody
-        @GetMapping("/{userId}") // (GET) 127.0.0.1:9000/app/users/:userIdx
-        public BaseResponse<GetUserRes> getUser(@PathVariable("userId") int userIdx) {
-            // Get Users
-            GetUserRes getUserRes = userProvider.getUser(userIdx);
-            return new BaseResponse<>(getUserRes);
-        }
-    */
+    
     @ResponseBody
     @JsonProperty("User")
     @PostMapping("/register")
