@@ -11,5 +11,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PostFindPasswordReq {
     private String userEmail;
-    private String password;
+//    private String password;
 }

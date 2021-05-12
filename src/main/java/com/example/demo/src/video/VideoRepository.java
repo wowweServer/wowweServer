@@ -24,4 +24,6 @@ public interface VideoRepository extends JpaRepository<Video, Long> {
 
     @Query("select v from Video v where v.title LIKE %:title%")
     public Page<Video> findByTitle(@Param("title") String title, Pageable pageable);
+
+
 }

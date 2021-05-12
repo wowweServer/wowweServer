@@ -28,11 +28,12 @@ public class VideoCommentApi {
     public BaseResponse<VideoCommentResDto> registerComment(@PathVariable("videoId") Long videoId, @RequestBody VideoCommentReqDto videoCommentDto) throws BaseException {
 
 //      유저 가져오는 로직이 있어야 합니다  로그인 되어 있으면
-        Long userId = 2l;
+        Long userId = videoCommentDto.getUserId();
 
         String comment = videoCommentDto.getComment();
 
         User user1 = userService.findById(userId);
+
         Video video1 = videoService.findById(videoId);
 
         VideoComment temp = videoCommentService.save(new VideoComment(user1, video1, comment));

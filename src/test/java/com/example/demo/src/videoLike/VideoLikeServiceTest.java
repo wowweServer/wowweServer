@@ -4,9 +4,11 @@ import com.example.demo.src.user.UserRepository;
 import com.example.demo.src.user.model.User;
 import com.example.demo.src.video.VideoRepository;
 import com.example.demo.src.video.model.Video;
+import com.example.demo.src.videoLike.dto.TopLikeVideoResDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,5 +39,17 @@ class VideoLikeServiceTest {
 
     }
 
+    @Test
+    public void top좋아요순으로받아오기() {
+
+        Page<TopLikeVideoResDto> topLikeVideoPaging = videoLikeService.topLikeVideoPaging(0, 2);
+
+        for (TopLikeVideoResDto topLikeVideoResDto : topLikeVideoPaging) {
+            System.out.println("video : " + topLikeVideoResDto.getVideoTitle());
+
+        }
+
+
+    }
 
 }

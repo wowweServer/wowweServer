@@ -18,8 +18,8 @@ public class VideoLikeApi {
     @Autowired
     VideoLikeService videoLikeService;
 
-    @GetMapping("/video_top/{offset}/{limit}")
-    public BaseResponse<Page<TopLikeVideoResDto>> paging(@PathVariable("offset") int offset, @PathVariable("limit") int limit) {
+    @GetMapping("/loadTop100Video")
+    public BaseResponse<Page<TopLikeVideoResDto>> paging(@RequestParam int offset, @RequestParam int limit) {
         Page<TopLikeVideoResDto> topLikeVideoPaging = videoLikeService.topLikeVideoPaging(offset, limit);
 
         return new BaseResponse<>(topLikeVideoPaging);

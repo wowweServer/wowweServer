@@ -11,19 +11,20 @@ import static com.example.demo.config.BaseResponseStatus.SUCCESS;
 @Getter
 @JsonPropertyOrder({"isSuccess", "code", "message", "result"})
 public class BaseResponse<T> {
-    @JsonProperty("isSuccess")
+    @JsonProperty("Success")
     private final Boolean isSuccess;
     private final String message;
+    @JsonProperty("status")
     private final int code;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private T result;
+    private T data;
 
     // 요청에 성공한 경우
-    public BaseResponse(T result) {
+    public BaseResponse(T data) {
         this.isSuccess = SUCCESS.isSuccess();
         this.message = SUCCESS.getMessage();
         this.code = SUCCESS.getCode();
-        this.result = result;
+        this.data = data;
     }
 
     // 요청에 실패한 경우

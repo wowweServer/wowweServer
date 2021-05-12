@@ -8,10 +8,10 @@ import lombok.NoArgsConstructor;
 public class VideoCommentReqDto {
 
     private String comment;
-    private String userName;
+    private Long userId;
 
-    public VideoCommentReqDto(String comment, String userName) {
+    public VideoCommentReqDto(String comment, Long userId) {
         this.comment = comment;
-        this.userName = userName;
+        this.userId = userId;
     }
 }

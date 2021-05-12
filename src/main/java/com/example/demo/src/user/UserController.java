@@ -30,6 +30,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/user")
 public class UserController {
     final Logger logger = LoggerFactory.getLogger(this.getClass());
