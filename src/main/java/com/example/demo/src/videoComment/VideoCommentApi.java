@@ -62,7 +62,7 @@ public class VideoCommentApi {
 
     }
 
-    @PostMapping("/video/removeComment")
+    @DeleteMapping("/video/removeComment")
     private BaseResponse<VideoCommentDeleteResDto> deleteComment(@RequestBody VideoCommentDeleteReqDto videoCommentDeleteReqDto) {
 
         Long commentId = videoCommentDeleteReqDto.getCommentId();

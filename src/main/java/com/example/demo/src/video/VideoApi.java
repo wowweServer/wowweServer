@@ -1,10 +1,7 @@
 package com.example.demo.src.video;
 
 import com.example.demo.config.BaseResponse;
-import com.example.demo.src.video.dto.SearchVideoReqDto;
-import com.example.demo.src.video.dto.SearchVideoResDto;
-import com.example.demo.src.video.dto.TimeVideoResDto;
-import com.example.demo.src.video.dto.VideoResDto;
+import com.example.demo.src.video.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,8 +23,12 @@ public class VideoApi {
         return new BaseResponse<>(recentlyVideoPaging);
     }
 
+    @PostMapping("/searchContent")
+    public BaseResponse<Page<SearchVideoResDto>> searchVideoByTitle(@RequestParam int offset, @RequestParam int limit, @RequestBody SearchVideoReqDto searchVideoReqDto) {
+        Page<SearchVideoResDto> searchVideoResDtos = videoService.searchVideoPaging(offset, limit, searchVideoReqDto.getTitle());
 
-
+        return new BaseResponse<>(searchVideoResDtos);
+    }
 }
 
 
