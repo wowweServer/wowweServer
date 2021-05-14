@@ -69,8 +69,9 @@ public class VideoController {
 
 
             Long userId=jwtService.getUserId();
-            Optional<User> user=userService.findByUserId(userId);
-            user.orElseThrow(()->new BaseException(INVALID_JWT));
+            Optional<User> opt=userService.findByUserId(userId);
+            opt.orElseThrow(()->new BaseException(INVALID_JWT));
+            User user=opt.get();
 
 
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
@@ -103,7 +104,7 @@ public class VideoController {
             FFmpegProbeResult probeResult=ffprobe.probe(videoPath);
             FFmpegFormat format = probeResult.getFormat();
 
-            videoService.createVideo(videoUploadReqDto,format.duration,videoDownUrl,imgDownUrl,userId);
+            videoService.createVideo(videoUploadReqDto,format.duration,videoDownUrl,imgDownUrl,user);
 
 
             return new BaseResponse(SUCCESS);
