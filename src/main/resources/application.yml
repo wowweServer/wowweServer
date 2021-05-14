@@ -28,5 +28,5 @@ secret:
   kakao:
     restApiKey: 1941893462dfad4f46b2ccc179a60d07
     clientKey: DzRwMyq97w8G4U8jDoBfhNjylQjMX8eV
-    callbackUrl: https://wowwowwe.herokuapp.com/user/kakao/callback
+    callbackUrl: https://wowwewe.herokuapp.com/user/kakao/callback
 
