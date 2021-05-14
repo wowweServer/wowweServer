@@ -23,8 +23,10 @@ spring:
     username: dungiapp
     password: dungiapp
     driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:h2:tcp://localhost/~/wowwe
-#    username: sa
-#    password:
-#    driver-class-name: org.h2.Driver
+
+secret:
+  kakao:
+    restApiKey: 1941893462dfad4f46b2ccc179a60d07
+    clientKey: DzRwMyq97w8G4U8jDoBfhNjylQjMX8eV
+    callbackUrl: https://wowwowwe.herokuapp.com/user/kakao/callback
 
