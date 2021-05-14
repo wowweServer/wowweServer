@@ -146,9 +146,14 @@ public class UserService {
         return new UpdateUserRes(userId);
     }
 
-
+    @Transactional
     public User findById(Long userId) {
         Optional<User> user = userRepository.findById(userId);
         return user.get();
+    }
+
+    @Transactional
+    public Optional<User> findByUserId(Long userId) {
+        return userRepository.findById(userId);
     }
 }

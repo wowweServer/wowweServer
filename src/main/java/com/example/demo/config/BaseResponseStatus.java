@@ -20,7 +20,6 @@ public enum BaseResponseStatus {
     LOGIN_USER_NOT_EQUAL_HOST(false,2019,"다른사용자입니다."),
 
 
-
     DATABASE_ERROR(false, 4000, "데이터베이스 연결에 실패하였습니다."),
     SERVER_ERROR(false, 4001, "서버와의 연결에 실패하였습니다."),
 

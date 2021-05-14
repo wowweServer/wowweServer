@@ -45,6 +45,8 @@ dependencies {
     // Web
     implementation ('org.springframework.boot:spring-boot-starter-web')
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation('org.springframework.boot:spring-boot-starter')
+    compile('org.springframework.boot:spring-boot-starter-web')
 
     // file upload
     compile group: 'commons-io', name: 'commons-io', version: '2.6' /* Apache Commons IO */
@@ -55,15 +57,13 @@ dependencies {
     compile(group: 'io.jsonwebtoken', name: 'jjwt', version: '0.7.0')
     compile('io.jsonwebtoken:jjwt:0.9.0')
 
-    implementation('org.springframework.boot:spring-boot-starter')
-    compile('org.springframework.boot:spring-boot-starter-web')
-
-
+    //http
     compile 'org.apache.httpcomponents:httpcore:4.4.1'
     compile 'org.apache.httpcomponents:httpclient:4.5'
-
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
 
+    //ffmpeg
+    implementation group: 'net.bramp.ffmpeg', name: 'ffmpeg', version: '0.6.2'
 
 
 
