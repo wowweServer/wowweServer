@@ -43,7 +43,7 @@ class VideoRepositoryTest {
         }
 
     }
-
+/*
     @Test
     public void duration으로_page가져오기() {
 
@@ -79,7 +79,7 @@ class VideoRepositoryTest {
 
     }
 
-
+*/
 
     @Test
     public void video잘만들어졌는가() {

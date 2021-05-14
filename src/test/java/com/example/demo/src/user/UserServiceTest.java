@@ -17,7 +17,7 @@ class UserServiceTest {
 
     @Autowired
     UserService userService;
-
+/*
     @Test
     public void 로그인테스트() throws BaseException {
 
@@ -40,5 +40,5 @@ class UserServiceTest {
 
         System.out.println("result : " + updateUserRes.getUesrId());
     }
-
+*/
 }
