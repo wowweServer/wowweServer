@@ -56,6 +56,7 @@ class VideoLikeServiceTest {
 
     }
 
+<<<<<<< HEAD
     @Test
     public void 최신영상받아오기() {
         Page<TimeVideoResDto> recentlyVideoPaging = videoService.recentlyVideoPaging(0, 3);
@@ -67,4 +68,8 @@ class VideoLikeServiceTest {
 
     }
 
+=======
+
+
+>>>>>>> 7c0660a74d5db9b2866564aa2c5497011da3ddcc
 }

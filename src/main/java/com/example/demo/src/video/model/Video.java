@@ -34,7 +34,7 @@ public class Video extends BaseTimeEntity {
     private String description;
     private boolean isLive;
     private String thumnailImg;
-    private int duration;
+    private double duration;
     private LocalDateTime startTime;
 
     @OneToMany(mappedBy = "video", cascade = CascadeType.ALL)
@@ -43,7 +43,7 @@ public class Video extends BaseTimeEntity {
     @OneToMany(mappedBy = "video", cascade = CascadeType.ALL)
     private List<VideoComment> videoComments = new ArrayList<>();
 
-    public Video(Long id, String fileUrl, String title, String description, boolean isLive, String thumnailImg, int duration, LocalDateTime startTime) {
+    public Video(Long id, String fileUrl, String title, String description, boolean isLive, String thumnailImg, double duration, LocalDateTime startTime) {
 
         this.id = id;
         this.fileUrl = fileUrl;
@@ -69,7 +69,7 @@ public class Video extends BaseTimeEntity {
         this.videoLikes = videoLikes;
     }
 
-    public Video(String title, String description, int duration) {
+    public Video(String title, String description, double duration) {
         this.title = title;
         this.description = description;
         this.duration = duration;

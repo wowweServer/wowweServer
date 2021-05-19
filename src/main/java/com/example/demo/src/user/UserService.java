@@ -95,7 +95,7 @@ public class UserService {
 
 
         Optional<User> users = userRepository.findByEmail(postFindPasswordReq.getUserEmail());
-        if(users.isPresent()){
+        if(!users.isPresent()){
             throw new BaseException(LOGIN_USER_NOT_EXISTS_EMAIL);
         }
         User user=users.get();
@@ -146,9 +146,14 @@ public class UserService {
         return new UpdateUserRes(userId);
     }
 
-
+    @Transactional
     public User findById(Long userId) {
         Optional<User> user = userRepository.findById(userId);
         return user.get();
+    }
+
+    @Transactional
+    public Optional<User> findByUserId(Long userId) {
+        return userRepository.findById(userId);
     }
 }

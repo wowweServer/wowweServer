@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import static com.example.demo.config.BaseResponseStatus.SUCCESS;
+
 @RestController
 @RequiredArgsConstructor
 public class VideoApi {
@@ -33,12 +35,31 @@ public class VideoApi {
 
 
     @DeleteMapping("/video/{videoId}/removeVideo")
-    public BaseResponse<String> deleteVideo(@PathVariable("videoId") Long videoId) {
+    public BaseResponse deleteVideo(@PathVariable("videoId") Long videoId) {
 
         Video video = videoService.findById(videoId);
         videoService.delete(video);
 
-        return new BaseResponse<>("");
+        return new BaseResponse(SUCCESS);
+    }
+
+    @GetMapping("/loadVideo/{videoId}")
+    public BaseResponse<SingleVideoResDto> singleVideo(@PathVariable("videoId") Long videoId) {
+
+        Video video = videoService.findById(videoId);
+        SingleVideoResDto apiDto = SingleVideoResDto.builder()
+                .title(video.getTitle())
+                .description(video.getDescription())
+                .fileUrl(video.getFileUrl())
+                .duration(video.getDuration())
+                .thumnailImg(video.getThumnailImg())
+                .isLive(video.isLive())
+                .createdDate(video.getCreatedTime())
+                .likes(video.getVideoLikes().size())
+                .videoId(video.getId())
+                .build();
+
+        return new BaseResponse<>(apiDto);
     }
 }
 

@@ -1,8 +1,10 @@
 package com.example.demo.src.video;
 
+import com.example.demo.src.user.model.User;
 import com.example.demo.src.video.dto.SearchVideoResDto;
 import com.example.demo.src.video.dto.TimeVideoResDto;
 import com.example.demo.src.video.dto.VideoResDto;
+import com.example.demo.src.video.dto.VideoUploadReqDto;
 import com.example.demo.src.video.model.Video;
 import com.example.demo.src.videoLike.dto.TopLikeVideoResDto;
 import lombok.RequiredArgsConstructor;
@@ -71,6 +73,23 @@ public class VideoService {
         return video.get();
     }
 
+
+
+    @Transactional
+    public void createVideo(VideoUploadReqDto videoUploadReqDto, double duration, String videoDownUrl, String imgDownUrl, User user){
+
+
+        Video video=new Video();
+
+        video.setUser(user);
+        video.setTitle(videoUploadReqDto.getTitle());
+        video.setDescription(videoUploadReqDto.getDescription());
+        video.setDuration(duration);
+        video.setThumnailImg(imgDownUrl);
+        video.setFileUrl(videoDownUrl);
+
+        videoRepository.save(video);
+    }
 
 
 

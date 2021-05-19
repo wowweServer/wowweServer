@@ -16,15 +16,34 @@ spring:
     properties:
       hibernate:
         format_sql: true
-
   datasource:
     platform: mysql
     url: jdbc:mysql://dungiapp.ctezwyeyfqua.ap-northeast-2.rds.amazonaws.com/cj?autoReconnect=true
     username: dungiapp
     password: dungiapp
     driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:h2:tcp://localhost/~/wowwe
-#    username: sa
-#    password:
-#    driver-class-name: org.h2.Driver
+  mvc:
+    static-path-pattern: /static/**
+    static-locations: file:/resources/static
+    add-mappings: true
+  servlet:
+    multipart:
+      max-file-size: 512MB
+      max-request-size: 512MB
 
+
+secret:
+  kakao:
+    restApiKey: 1941893462dfad4f46b2ccc179a60d07
+    clientKey: DzRwMyq97w8G4U8jDoBfhNjylQjMX8eV
+    callbackUrl: https://wowwe.rigingprogrammertest.site/user/kakao/callback
+
+file:
+  upload:
+    path: /src/main/resources/static/
+  down:
+    baseUrl: https://wowwe.rigingprogrammertest.site/static/
+  ffmpeg:
+    path: /usr/bin/ffmpeg
+  ffprobe:
+    path: /usr/bin/ffprobe

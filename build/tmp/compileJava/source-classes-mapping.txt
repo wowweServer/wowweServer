@@ -1,42 +1,115 @@
-com/example/demo/src/user/model/PostLoginReq.java
- com.example.demo.src.user.model.PostLoginReq
-com/example/demo/src/user/model/PostUserReq.java
- com.example.demo.src.user.model.PostUserReq
-com/example/demo/config/Constant.java
- com.example.demo.config.Constant
-com/example/demo/config/secret/Secret.java
- com.example.demo.config.secret.Secret
-com/example/demo/src/user/model/PostUserRes.java
- com.example.demo.src.user.model.PostUserRes
-com/example/demo/src/test/TestController.java
- com.example.demo.src.test.TestController
-com/example/demo/src/user/UserRepository.java
- com.example.demo.src.user.UserRepository
+com/example/demo/src/videoComment/dto/VideoCommentUpdateResDto.java
+ com.example.demo.src.videoComment.dto.VideoCommentUpdateResDto
+com/example/demo/src/video/model/Video.java
+ com.example.demo.src.video.model.Video
+com/example/demo/src/video/dto/VideoUploadReqDto.java
+ com.example.demo.src.video.dto.VideoUploadReqDto
+com/example/demo/src/video/dto/VideoResDto.java
+ com.example.demo.src.video.dto.VideoResDto
+com/example/demo/src/videoComment/dto/VideoCommentUpdateReqDto.java
+ com.example.demo.src.videoComment.dto.VideoCommentUpdateReqDto
+com/example/demo/src/video/dto/SearchVideoReqDto.java
+ com.example.demo.src.video.dto.SearchVideoReqDto
 com/example/demo/utils/ValidationRegex.java
  com.example.demo.utils.ValidationRegex
-com/example/demo/config/BaseResponse.java
- com.example.demo.config.BaseResponse
-com/example/demo/src/user/model/KakaoLoginReq.java
- com.example.demo.src.user.model.KakaoLoginReq
-com/example/demo/src/user/model/PostFindPasswordRes.java
- com.example.demo.src.user.model.PostFindPasswordRes
-com/example/demo/src/user/model/User.java
- com.example.demo.src.user.model.User
-com/example/demo/src/user/UserService.java
- com.example.demo.src.user.UserService
-com/example/demo/utils/AES128.java
- com.example.demo.utils.AES128
+com/example/demo/src/videoLike/model/VideoLike.java
+ com.example.demo.src.videoLike.model.VideoLike
+com/example/demo/src/videoLike/VideoLikeApi.java
+ com.example.demo.src.videoLike.VideoLikeApi
+com/example/demo/src/videoComment/model/VideoComment.java
+ com.example.demo.src.videoComment.model.VideoComment
+com/example/demo/src/video/dto/SearchVideoResDto.java
+ com.example.demo.src.video.dto.SearchVideoResDto
 com/example/demo/config/BaseResponseStatus.java
  com.example.demo.config.BaseResponseStatus
 com/example/demo/src/user/model/PostFindPasswordReq.java
  com.example.demo.src.user.model.PostFindPasswordReq
+com/example/demo/src/user/model/UpdateUserRes.java
+ com.example.demo.src.user.model.UpdateUserRes
+com/example/demo/config/Webconfig.java
+ com.example.demo.config.Webconfig
+com/example/demo/src/videoComment/dto/VideoCommentDeleteReqDto.java
+ com.example.demo.src.videoComment.dto.VideoCommentDeleteReqDto
+com/example/demo/src/video/dto/TimeVideoResDto.java
+ com.example.demo.src.video.dto.TimeVideoResDto
+com/example/demo/src/videoComment/VideoCommentRepository.java
+ com.example.demo.src.videoComment.VideoCommentRepository
+com/example/demo/config/secret/Secret.java
+ com.example.demo.config.secret.Secret
+com/example/demo/src/user/model/PostUserRes.java
+ com.example.demo.src.user.model.PostUserRes
+com/example/demo/src/user/UserRepository.java
+ com.example.demo.src.user.UserRepository
+com/example/demo/config/BaseResponse.java
+ com.example.demo.config.BaseResponse
+com/example/demo/src/user/model/KakaoLoginReq.java
+ com.example.demo.src.user.model.KakaoLoginReq
+com/example/demo/src/video/VideoApi.java
+ com.example.demo.src.video.VideoApi
+com/example/demo/src/videoComment/dto/VideoCommentDto.java
+ com.example.demo.src.videoComment.dto.VideoCommentDto
+com/example/demo/src/user/UserService.java
+ com.example.demo.src.user.UserService
+com/example/demo/src/videoComment/VideoCommentApi.java
+ com.example.demo.src.videoComment.VideoCommentApi
 com/example/demo/config/BaseException.java
  com.example.demo.config.BaseException
-com/example/demo/DemoApplication.java
- com.example.demo.DemoApplication
-com/example/demo/src/WebSecurityConfig.java
- com.example.demo.src.WebSecurityConfig
-com/example/demo/utils/JwtService.java
- com.example.demo.utils.JwtService
+com/example/demo/src/videoComment/dto/VideoCommentDeleteResDto.java
+ com.example.demo.src.videoComment.dto.VideoCommentDeleteResDto
+com/example/demo/src/video/VideoService.java
+ com.example.demo.src.video.VideoService
+com/example/demo/src/videoLike/dto/AddLikeResDto.java
+ com.example.demo.src.videoLike.dto.AddLikeResDto
+com/example/demo/src/videoLike/VideoLikeRepository.java
+ com.example.demo.src.videoLike.VideoLikeRepository
+com/example/demo/src/user/model/PostUserReq.java
+ com.example.demo.src.user.model.PostUserReq
+com/example/demo/src/ex/ReactController.java
+ com.example.demo.src.ex.ReactController
+com/example/demo/src/videoLike/dto/TopLikeVideoResDto.java
+ com.example.demo.src.videoLike.dto.TopLikeVideoResDto
+com/example/demo/utils/Http.java
+ com.example.demo.utils.Http
+com/example/demo/src/user/model/PostFindPasswordRes.java
+ com.example.demo.src.user.model.PostFindPasswordRes
+com/example/demo/utils/AES128.java
+ com.example.demo.utils.AES128
+com/example/demo/src/video/dto/UserDto.java
+ com.example.demo.src.video.dto.UserDto
+com/example/demo/src/test/TestController.java
+ com.example.demo.src.test.TestController
+com/example/demo/src/user/model/PostLoginReq.java
+ com.example.demo.src.user.model.PostLoginReq
+com/example/demo/src/video/VideoRepository.java
+ com.example.demo.src.video.VideoRepository
+com/example/demo/src/videoComment/dto/VideoCommentReqDto.java
+ com.example.demo.src.videoComment.dto.VideoCommentReqDto
+com/example/demo/src/videoComment/VideoCommentService.java
+ com.example.demo.src.videoComment.VideoCommentService
+com/example/demo/src/videoComment/dto/VideoCommentResDto.java
+ com.example.demo.src.videoComment.dto.VideoCommentResDto
 com/example/demo/src/user/UserController.java
  com.example.demo.src.user.UserController
+com/example/demo/src/videoLike/VideoLikeService.java
+ com.example.demo.src.videoLike.VideoLikeService
+com/example/demo/config/BaseTimeEntity.java
+ com.example.demo.config.BaseTimeEntity
+com/example/demo/src/user/model/User.java
+ com.example.demo.src.user.model.User
+com/example/demo/src/videoLike/dto/AddLikeDto.java
+ com.example.demo.src.videoLike.dto.AddLikeDto
+com/example/demo/src/ex/WebController.java
+ com.example.demo.src.ex.WebController
+ com.example.demo.src.ex.WebController$WebConfig
+com/example/demo/src/ex/WebSecurityConfig.java
+ com.example.demo.src.ex.WebSecurityConfig
+com/example/demo/src/user/model/UpdateUserReq.java
+ com.example.demo.src.user.model.UpdateUserReq
+com/example/demo/DemoApplication.java
+ com.example.demo.DemoApplication
+com/example/demo/src/ex/HelloController.java
+ com.example.demo.src.ex.HelloController
+com/example/demo/utils/JwtService.java
+ com.example.demo.utils.JwtService
+com/example/demo/src/video/VideoController.java
+ com.example.demo.src.video.VideoController
