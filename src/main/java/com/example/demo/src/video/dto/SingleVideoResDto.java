@@ -20,5 +20,9 @@ public class SingleVideoResDto {
 
     private int likes;
 
+    private UserDto userDto;
 
+    public void add(Long userId, String userName, String profileImg) {
+        this.userDto = new UserDto(userId, userName, profileImg);
+    }
 }

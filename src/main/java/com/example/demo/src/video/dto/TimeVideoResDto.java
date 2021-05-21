@@ -20,14 +20,14 @@ public class TimeVideoResDto {
 
     private UserDto userDto;
 
-    public TimeVideoResDto(Long videoid, String videoImg, String videoTitle, LocalDateTime createdAt, Long userId, String userName) {
+    public TimeVideoResDto(Long videoid, String videoImg, String videoTitle, LocalDateTime createdAt, Long userId, String userName, String profileImg) {
 
         this.videoId = videoid;
         this.videoImg = videoImg;
         this.videoTitle = videoTitle;
         this.createdAt = createdAt;
 
-        this.userDto = new UserDto(userId, userName);
+        this.userDto = new UserDto(userId, userName, profileImg);
 
     }
 

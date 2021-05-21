@@ -59,6 +59,8 @@ public class VideoApi {
                 .videoId(video.getId())
                 .build();
 
+        apiDto.add(video.getUser().getId(), video.getUser().getName(), video.getUser().getProfileImg());
+
         return new BaseResponse<>(apiDto);
     }
 }
