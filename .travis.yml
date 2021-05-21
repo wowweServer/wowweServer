@@ -1,4 +1,5 @@
 #.Travis.yml
+
 language: java
 jdk:
   - openjdk8
@@ -14,6 +15,10 @@ cache:
     - '$HOME/.gradle'
 
 script: "./gradlew clean build"
+
+before_install:
+  - chomod +x gradlew
+
 
 #CI 실행 완료 시 메일로 알람
 notifications:
