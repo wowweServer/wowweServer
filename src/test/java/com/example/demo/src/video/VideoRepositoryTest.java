@@ -28,21 +28,21 @@ class VideoRepositoryTest {
     @Autowired
     UserRepository userRepository;
 
-    @Test
-    public void title로page가져오기() {
-
-        PageRequest pageRequest = PageRequest.of(0, 3);
-
-
-        Page<Video> page = videoRepository.findByTitle("title1", pageRequest);
-
-        List<Video> content = page.getContent();
-
-        for (Video video : content) {
-            System.out.println("video : " + video.getTitle());
-        }
-
-    }
+//    @Test
+//    public void title로page가져오기() {
+//
+//        PageRequest pageRequest = PageRequest.of(0, 3);
+//
+//
+//        Page<Video> page = videoRepository.findByTitle("title1", pageRequest);
+//
+//        List<Video> content = page.getContent();
+//
+//        for (Video video : content) {
+//            System.out.println("video : " + video.getTitle());
+//        }
+//
+//    }
 /*
     @Test
     public void duration으로_page가져오기() {
@@ -81,55 +81,55 @@ class VideoRepositoryTest {
 
 */
 
-    @Test
-    public void video잘만들어졌는가() {
-
-        User A = userRepository.save(new User("chang"));
-        User B = userRepository.save(new User("chang2"));
-
-
-        videoRepository.save(new Video("title1", "link", A));
-        videoRepository.save(new Video("title2", "link",B));
-        videoRepository.save(new Video("title3", "link",B));
-        videoRepository.save(new Video("title4", "link",A));
-        videoRepository.save(new Video("title5", "link",B));
-
-        PageRequest pageRequest = PageRequest.of(0, 3);
-
-        Page<Video> page = videoRepository.findAll(pageRequest);
-
-        List<Video> content = page.getContent();
-
-        for (Video video : content) {
-            System.out.println("video title : " + video.getTitle());
-
-        }
-
-    }
-
-
-    @Test
-    public void videoLike검사() {
-
-        User user1 = new User("user1");
-        User user2 = new User("user2");
-
-
-        Video video1 = new Video("title1", "des", user1);
-        Video video2 = new Video("title2", "des", user2);
-        Video video3 = new Video("title3", "des", user1);
-        Video video4 = new Video("title4", "des", user2);
-
-
-        VideoLike videoLike1 = new VideoLike(user1, video3);
-        VideoLike videoLike2 = new VideoLike(user2, video2);
-        VideoLike videoLike3 = new VideoLike(user1, video1);
-        VideoLike videoLike4 = new VideoLike(user2, video3);
-        VideoLike videoLike5 = new VideoLike(user2, video3);
-        VideoLike videoLike6 = new VideoLike(user1, video4);
-
-
-
-    }
+//    @Test
+//    public void video잘만들어졌는가() {
+//
+//        User A = userRepository.save(new User("chang"));
+//        User B = userRepository.save(new User("chang2"));
+//
+//
+//        videoRepository.save(new Video("title1", "link", A));
+//        videoRepository.save(new Video("title2", "link",B));
+//        videoRepository.save(new Video("title3", "link",B));
+//        videoRepository.save(new Video("title4", "link",A));
+//        videoRepository.save(new Video("title5", "link",B));
+//
+//        PageRequest pageRequest = PageRequest.of(0, 3);
+//
+//        Page<Video> page = videoRepository.findAll(pageRequest);
+//
+//        List<Video> content = page.getContent();
+//
+//        for (Video video : content) {
+//            System.out.println("video title : " + video.getTitle());
+//
+//        }
+//
+//    }
+//
+//
+//    @Test
+//    public void videoLike검사() {
+//
+//        User user1 = new User("user1");
+//        User user2 = new User("user2");
+//
+//
+//        Video video1 = new Video("title1", "des", user1);
+//        Video video2 = new Video("title2", "des", user2);
+//        Video video3 = new Video("title3", "des", user1);
+//        Video video4 = new Video("title4", "des", user2);
+//
+//
+//        VideoLike videoLike1 = new VideoLike(user1, video3);
+//        VideoLike videoLike2 = new VideoLike(user2, video2);
+//        VideoLike videoLike3 = new VideoLike(user1, video1);
+//        VideoLike videoLike4 = new VideoLike(user2, video3);
+//        VideoLike videoLike5 = new VideoLike(user2, video3);
+//        VideoLike videoLike6 = new VideoLike(user1, video4);
+//
+//
+//
+//    }
 
 }

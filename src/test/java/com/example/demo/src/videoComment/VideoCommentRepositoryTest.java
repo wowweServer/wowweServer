@@ -29,22 +29,22 @@ class VideoCommentRepositoryTest {
     @Autowired
     VideoRepository videoRepository;
 
-    @Test
-    public void 댓글테스트() {
-
-
-        Optional<User> user1 = userRepository.findById(1l);
-        Optional<User> user2 = userRepository.findById(2l);
-
-        Optional<Video> video1 = videoRepository.findById(1l);
-
-
-//        videoCommentRepository.save(new VideoComment(user1.get(), video1.get(), "hi! helllo"));
-        videoCommentRepository.save(new VideoComment(user2.get(), video1.get(), "hi2222! helllo22222"));
-
-
-
-    }
+//    @Test
+//    public void 댓글테스트() {
+//
+//
+//        Optional<User> user1 = userRepository.findById(1l);
+//        Optional<User> user2 = userRepository.findById(2l);
+//
+//        Optional<Video> video1 = videoRepository.findById(1l);
+//
+//
+////        videoCommentRepository.save(new VideoComment(user1.get(), video1.get(), "hi! helllo"));
+//        videoCommentRepository.save(new VideoComment(user2.get(), video1.get(), "hi2222! helllo22222"));
+//
+//
+//
+//    }
 
 
 

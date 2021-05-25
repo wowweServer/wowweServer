@@ -34,25 +34,25 @@ class VideoLikeServiceTest {
     @Autowired
     VideoService videoService;
 
-    @Test
-    public void 비디오좋아요누르기() {
-
-        long val = 1;
-
-        videoLikeService.videoLike(val, val);
-
-    }
-
-    @Test
-    public void top좋아요순으로받아오기() {
-
-        Page<TopLikeVideoResDto> topLikeVideoPaging = videoLikeService.topLikeVideoPaging(0, 2);
-
-        for (TopLikeVideoResDto topLikeVideoResDto : topLikeVideoPaging) {
-            System.out.println("video : " + topLikeVideoResDto.getVideoTitle());
-
-        }
-
-
-    }
+//    @Test
+//    public void 비디오좋아요누르기() {
+//
+//        long val = 1;
+//
+//        videoLikeService.videoLike(val, val);
+//
+//    }
+//
+//    @Test
+//    public void top좋아요순으로받아오기() {
+//
+//        Page<TopLikeVideoResDto> topLikeVideoPaging = videoLikeService.topLikeVideoPaging(0, 2);
+//
+//        for (TopLikeVideoResDto topLikeVideoResDto : topLikeVideoPaging) {
+//            System.out.println("video : " + topLikeVideoResDto.getVideoTitle());
+//
+//        }
+//
+//
+//    }
 }

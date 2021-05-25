@@ -17,10 +17,10 @@ class UserControllerTest {
     @Autowired
     UserService userService;
 
-    @Test
-    public void 회원가입() {
-
-        System.out.println();
-    }
+//    @Test
+//    public void 회원가입() {
+//
+//        System.out.println();
+//    }
 
 }
