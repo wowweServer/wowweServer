@@ -27,7 +27,7 @@ notifications:
 before_deploy:
   - zip -r springboot-webservice-wowweServer *
   - mkdir -p deploy
-  - mv springboot-webservice-webservice.zip deploy/springboot-webservice-wowweServer.zip
+  - mv springboot-webservice-wowweServer.zip deploy/springboot-webservice-wowweServer.zip
 
 deploy:
   - provider: s3
