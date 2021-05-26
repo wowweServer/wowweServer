@@ -25,9 +25,9 @@ notifications:
       - aowert6518@naver.com
 
 before_deploy:
-  - zip -r springboot-webservice2-wowweServer *
+  - zip -r springboot-webservice-wowweServer *
   - mkdir -p deploy
-  - mv springboot-webservice-webservice2.zip deploy/springboot-webservice2-wowweServer.zip
+  - mv springboot-webservice-webservice.zip deploy/springboot-webservice-wowweServer.zip
 
 deploy:
   - provider: s3
@@ -46,7 +46,7 @@ deploy:
     access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값 
     secret_access_key: $AWS_SECRET_KEY # Travis repo settings에 설정된 값 
     bucket: wowwe-bucket # S3 버킷 
-    key: springboot-webservice2-wowweServer.zip # 빌드 파일을 압축해서 전달 
+    key: springboot-webservice-wowweServer.zip # 빌드 파일을 압축해서 전달 
     bundle_type: zip 
     application: springboot-webservice-wowweServer # 웹 콘솔에서 등록한 CodeDeploy 어플리케이션 
     deployment_group: springboot-webservice-wowweServer-group # 웹콘솔에서 등록한 CodeDeploy 배포 그룹 
