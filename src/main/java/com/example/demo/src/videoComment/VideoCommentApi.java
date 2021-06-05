@@ -12,6 +12,7 @@ import com.example.demo.src.videoComment.model.VideoComment;
 import com.example.demo.utils.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import static com.example.demo.config.BaseResponseStatus.LOGIN_USER_NOT_EQUAL_HOST;
@@ -51,6 +52,15 @@ public class VideoCommentApi {
         return new BaseResponse<>(videoCommentResDto);
     }
 
+
+    @GetMapping("/video/{videoId}/loadComment")
+    public BaseResponse<Page<VideoCommentDto>> getVideo(@PathVariable("videoId") Long videoId, @RequestParam("offset") int offset, @RequestParam("limit") int limit) {
+
+        Page<VideoCommentDto> videoCommentDtos = videoCommentService.pageByVideoId(videoId, offset, limit);
+
+        return new BaseResponse<>(videoCommentDtos);
+
+    }
 
     @PostMapping("/video/editComment")
     public BaseResponse<VideoCommentUpdateResDto> updateComment(@RequestBody VideoCommentUpdateReqDto videoCommentUpdateReqDto) throws BaseException {

@@ -1,8 +1,12 @@
 package com.example.demo.src.videoComment;
 
+import com.example.demo.src.videoComment.dto.VideoCommentDto;
 import com.example.demo.src.videoComment.model.VideoComment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,5 +39,16 @@ public class VideoCommentService {
     @Transactional
     public void delete(Long commentId) {
         videoCommentRepository.deleteById(commentId);
+    }
+
+    @Transactional
+    public Page<VideoCommentDto> pageByVideoId(Long videoId, int offset, int limit) {
+
+        PageRequest pageRequest = PageRequest.of(offset, limit, Sort.Direction.DESC, "createdTime");
+        Page<VideoComment> byVideoId = videoCommentRepository.findByVideoId(videoId, pageRequest);
+
+        Page<VideoCommentDto> apiDto = byVideoId.map(vc -> new VideoCommentDto(vc.getId(), vc.getComment(), vc.getCreatedTime()));
+
+        return apiDto;
     }
 }
