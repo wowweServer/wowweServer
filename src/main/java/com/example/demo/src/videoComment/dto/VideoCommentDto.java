@@ -1,5 +1,6 @@
 package com.example.demo.src.videoComment.dto;
 
+import com.example.demo.src.video.dto.UserDto;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -10,11 +11,14 @@ public class VideoCommentDto {
     private Long id;
     private String commentText;
     private LocalDateTime createdAt;
+    private UserDto userDto;
 
-    public VideoCommentDto(Long id, String commentText, LocalDateTime createdAt) {
+    public VideoCommentDto(Long id, String commentText, LocalDateTime createdAt, UserDto userDto) {
+
         this.id = id;
         this.commentText = commentText;
         this.createdAt = createdAt;
+        this.userDto = userDto;
     }
 }
 //    response

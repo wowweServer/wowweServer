@@ -1,5 +1,6 @@
 package com.example.demo.src.videoComment;
 
+import com.example.demo.src.video.dto.UserDto;
 import com.example.demo.src.videoComment.dto.VideoCommentDto;
 import com.example.demo.src.videoComment.model.VideoComment;
 import lombok.RequiredArgsConstructor;
@@ -46,8 +47,7 @@ public class VideoCommentService {
 
         PageRequest pageRequest = PageRequest.of(offset, limit, Sort.Direction.DESC, "createdTime");
         Page<VideoComment> byVideoId = videoCommentRepository.findByVideoId(videoId, pageRequest);
-
-        Page<VideoCommentDto> apiDto = byVideoId.map(vc -> new VideoCommentDto(vc.getId(), vc.getComment(), vc.getCreatedTime()));
+        Page<VideoCommentDto> apiDto = byVideoId.map(vc -> new VideoCommentDto(vc.getId(), vc.getComment(), vc.getCreatedTime(), new UserDto(vc.getUser().getId(), vc.getUser().getName(), vc.getUser().getProfileImg())));
 
         return apiDto;
     }
