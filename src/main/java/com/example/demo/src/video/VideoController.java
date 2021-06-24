@@ -28,8 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static com.example.demo.config.BaseResponseStatus.INVALID_JWT;
-import static com.example.demo.config.BaseResponseStatus.SUCCESS;
+import static com.example.demo.config.BaseResponseStatus.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -63,57 +62,88 @@ public class VideoController {
     //비디오 업로드
     @ResponseBody
     @PostMapping("/video/upload")
-    public BaseResponse upload(@RequestParam("file") MultipartFile file,
+    public BaseResponse upload(@RequestParam("video") MultipartFile videoFile,
+                               @RequestParam("image") MultipartFile imageFile,
                                VideoUploadReqDto videoUploadReqDto) throws BaseException{
         try{
-
 
             Long userId=jwtService.getUserId();
             Optional<User> opt=userService.findByUserId(userId);
             opt.orElseThrow(()->new BaseException(INVALID_JWT));
             User user=opt.get();
 
+            if(videoFile==null||imageFile==null||videoUploadReqDto.getTitle()==null
+            ||videoUploadReqDto.getDescription()==null||new Double(videoUploadReqDto.getDuration())==null){
+                return new BaseResponse(REQUEST_ERROR);
+            }
 
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-            String current_date = simpleDateFormat.format(new Date());
-            String basePath = new File("").getAbsolutePath() + fileUploadPath;
-            String[] fileFlags = file.getOriginalFilename().split("\\.");
-            String videoPath = basePath +"video"+current_date + "." + fileFlags[fileFlags.length-1];
-            String videoDownUrl=fileDownBaseUrl+"video"+current_date + "." + fileFlags[fileFlags.length-1];
+            String[] videoFileFlags = videoFile.getOriginalFilename().split("\\.");
+            String videoExt=videoFileFlags[videoFileFlags.length-1];
 
-            File dest = new File(videoPath);
-            file.transferTo(dest);
+            if(videoExt!="mp4") {
+                return new BaseResponse(INVALID_VIDEO_EXT);
+            }
 
-            FFmpeg ffmpeg=new FFmpeg(ffmpegPath);
-            FFprobe ffprobe=new FFprobe(ffprobePath);
+            String[] imageFileFlags = imageFile.getOriginalFilename().split("\\.");
+            String imageExt=imageFileFlags[imageFileFlags.length-1];
 
-            String imgPath=basePath+"img"+current_date+".png";
-            String imgDownUrl=fileDownBaseUrl+"img"+current_date+".png";
+            if(imageExt!="png"&&imageExt!="jpg"){
+                return new BaseResponse(INVALID_IMAGE_EXT);
+            }
 
-            FFmpegBuilder builder = new FFmpegBuilder()
-                    .overrideOutputFiles(true)
-                    .setInput(videoPath)
-                    .addExtraArgs("-ss","00:00:01")
-                    .addOutput(imgPath)
-                    .setFrames(1)
-                    .done();
-
-            FFmpegExecutor executor = new FFmpegExecutor(ffmpeg,ffprobe);
-            executor.createJob(builder).run();
-
-            FFmpegProbeResult probeResult=ffprobe.probe(videoPath);
-            FFmpegFormat format = probeResult.getFormat();
-
-            videoService.createVideo(videoUploadReqDto,format.duration,videoDownUrl,imgDownUrl,user);
-
+            videoService.createVideo(videoUploadReqDto,
+                    videoCreate(videoFile,videoExt)
+                    ,imageCreate(imageFile,imageExt)
+                    ,user);
 
             return new BaseResponse(SUCCESS);
         }
         catch(Exception e) {
             e.printStackTrace();
+            return new BaseResponse(SERVER_ERROR);
+        }
+    }
+
+    String videoCreate(MultipartFile videoFile,String videoExt) throws BaseException{
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+            String current_date = simpleDateFormat.format(new Date());
+
+            String basePath = new File("").getAbsolutePath() + fileUploadPath;
+
+
+            String videoPath = basePath + "video" + current_date + "." + videoExt;
+            String videoDownUrl = fileDownBaseUrl + "video" + current_date + "." + videoExt;
+
+            File dest = new File(videoPath);
+            videoFile.transferTo(dest);
+
+            return videoDownUrl;
+        }
+        catch(Exception e){
+            throw new BaseException(VIDEO_UPLOAD_ERROR);
         }
 
-        return new BaseResponse(SUCCESS);
+    }
+    String imageCreate(MultipartFile imageFile,String imageExt) throws BaseException{
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+            String current_date = simpleDateFormat.format(new Date());
+
+            String basePath = new File("").getAbsolutePath() + fileUploadPath;
+
+            String imagePath = basePath + "image" + current_date + "." + imageExt;
+            String imageDownUrl = fileDownBaseUrl + "image" + current_date + "." + imageExt;
+
+            File dest = new File(imagePath);
+            imageFile.transferTo(dest);
+
+            return imageDownUrl;
+        }
+        catch(Exception e){
+            throw new BaseException(IMAGE_UPLOAD_ERROR);
+        }
+
     }
 
 }

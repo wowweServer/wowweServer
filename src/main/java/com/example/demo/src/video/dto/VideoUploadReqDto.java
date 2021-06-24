@@ -6,4 +6,5 @@ import lombok.Data;
 public class VideoUploadReqDto {
     private String title;
     private String description;
+    private double duration;
 }

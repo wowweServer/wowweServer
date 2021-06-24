@@ -19,6 +19,11 @@ public enum BaseResponseStatus {
     LOGIN_USER_NOT_EXISTS_EMAIL(false,2018,"존재하지않는 이메일입니다."),
     LOGIN_USER_NOT_EQUAL_HOST(false,2019,"다른사용자입니다."),
 
+    //video
+    INVALID_VIDEO_EXT(false,2030,"유효하지 않은 비디오 확장자"),
+    INVALID_IMAGE_EXT(false,2031,"유효하지 않은 썸네일 확장자"),
+    VIDEO_UPLOAD_ERROR(false,2032,"비디오 업로드 실패"),
+    IMAGE_UPLOAD_ERROR(false,2033,"썸네일 업로드 실패"),
 
     DATABASE_ERROR(false, 4000, "데이터베이스 연결에 실패하였습니다."),
     SERVER_ERROR(false, 4001, "서버와의 연결에 실패하였습니다."),

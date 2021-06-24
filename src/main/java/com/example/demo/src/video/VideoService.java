@@ -76,7 +76,7 @@ public class VideoService {
 
 
     @Transactional
-    public void createVideo(VideoUploadReqDto videoUploadReqDto, double duration, String videoDownUrl, String imgDownUrl, User user){
+    public void createVideo(VideoUploadReqDto videoUploadReqDto, String videoDownUrl, String imgDownUrl, User user){
 
 
         Video video=new Video();
@@ -84,10 +84,9 @@ public class VideoService {
         video.setUser(user);
         video.setTitle(videoUploadReqDto.getTitle());
         video.setDescription(videoUploadReqDto.getDescription());
-        video.setDuration(duration);
+        video.setDuration(videoUploadReqDto.getDuration());
         video.setThumnailImg(imgDownUrl);
         video.setFileUrl(videoDownUrl);
-
         videoRepository.save(video);
     }
 
